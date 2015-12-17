@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\deps">
+      <UniqueIdentifier>{cfdc4dcc-3d35-47e5-9a1c-8dd73e0e5fab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\deps\cpp-fmt">
+      <UniqueIdentifier>{e8e85e67-b0e3-4330-adab-177662428c15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\deps\luna">
+      <UniqueIdentifier>{30f87529-b945-468a-9f5b-d7442c7f4d2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src">
+      <UniqueIdentifier>{e6ee460e-51d8-4ca8-a17d-f33b5e55efe0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\lib">
+      <UniqueIdentifier>{654770c5-0f9a-4049-8e99-d155f27f02e5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.cc">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\deps\Luna\crucible.cc">
+      <Filter>Source Files\deps\luna</Filter>
+    </ClCompile>
+    <ClCompile Include="..\deps\CppFmt\posix.cc">
+      <Filter>Source Files\deps\cpp-fmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\deps\CppFmt\format.cc">
+      <Filter>Source Files\deps\cpp-fmt</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\priority-queue.cc">
+      <Filter>Source Files\lib</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\deps\Luna\exp.inl">
+      <Filter>Source Files\deps\luna</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\deps\Luna\Utils.hh">
+      <Filter>Source Files\deps\luna</Filter>
+    </ClInclude>
+    <ClInclude Include="..\deps\Luna\Crucible.hh">
+      <Filter>Source Files\deps\luna</Filter>
+    </ClInclude>
+    <ClInclude Include="..\deps\CppFmt\format.h">
+      <Filter>Source Files\deps\cpp-fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\deps\CppFmt\posix.h">
+      <Filter>Source Files\deps\cpp-fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\priority-queue.hh">
+      <Filter>Source Files\lib</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
