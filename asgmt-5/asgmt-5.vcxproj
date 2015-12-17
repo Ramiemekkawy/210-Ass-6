@@ -74,7 +74,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib;$(SolutionDir)deps;$(SolutionDir)deps\CppFmt;$(SolutionDir)deps\Luna</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>"$(ProjectDir)lib;$(SolutionDir)deps;$(SolutionDir)deps\CppFmt;$(SolutionDir)deps\Luna"</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -85,6 +85,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib;$(SolutionDir)deps;$(SolutionDir)deps\CppFmt;$(SolutionDir)deps\Luna</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -119,20 +120,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\deps\CppFmt\format.cc" />
-    <ClCompile Include="..\deps\CppFmt\posix.cc" />
-    <ClCompile Include="..\deps\Luna\crucible.cc" />
+    <ClCompile Include="$(SolutionDir)deps\CppFmt\format.cc" />
+    <ClCompile Include="$(SolutionDir)deps\CppFmt\posix.cc" />
+    <ClCompile Include="$(SolutionDir)deps\Luna\crucible.cc" />
     <ClCompile Include="lib\priority-queue.cc" />
     <ClCompile Include="src\main.cc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\deps\Luna\exp.inl" />
+    <None Include="$(SolutionDir)deps\Luna\exp.inl" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\deps\CppFmt\format.h" />
-    <ClInclude Include="..\deps\CppFmt\posix.h" />
-    <ClInclude Include="..\deps\Luna\Crucible.hh" />
-    <ClInclude Include="..\deps\Luna\Utils.hh" />
+    <ClInclude Include="$(SolutionDir)deps\CppFmt\format.h" />
+    <ClInclude Include="$(SolutionDir)deps\CppFmt\posix.h" />
+    <ClInclude Include="$(SolutionDir)deps\Luna\Crucible.hh" />
+    <ClInclude Include="$(SolutionDir)deps\Luna\Utils.hh" />
     <ClInclude Include="lib\priority-queue.hh" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

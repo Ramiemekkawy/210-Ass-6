@@ -82,6 +82,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)asgmt-5\lib;$(SolutionDir)deps;$(SolutionDir)deps\CppFmt;$(SolutionDir)deps\Luna</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -111,33 +112,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\asgmt-5\lib\priority-queue.hh" />
-    <ClInclude Include="..\deps\CppFmt\format.h" />
-    <ClInclude Include="..\deps\CppFmt\posix.h" />
-    <ClInclude Include="..\deps\Luna\Crucible.hh" />
-    <ClInclude Include="..\deps\Luna\Utils.hh" />
-    <ClInclude Include="..\asgmt-6b\Edge.h" />
-    <ClInclude Include="..\asgmt-6b\WGraph.h" />
+    <ClInclude Include="$(SolutionDir)asgmt-5\lib\priority-queue.hh" />
+    <ClInclude Include="$(SolutionDir)deps\CppFmt\format.h" />
+    <ClInclude Include="$(SolutionDir)deps\CppFmt\posix.h" />
+    <ClInclude Include="$(SolutionDir)deps\Luna\Crucible.hh" />
+    <ClInclude Include="$(SolutionDir)deps\Luna\Utils.hh" />
+    <ClInclude Include="$(SolutionDir)asgmt-6b\Edge.h" />
+    <ClInclude Include="$(SolutionDir)asgmt-6b\WGraph.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\asgmt-5\lib\priority-queue.cc" />
-    <ClCompile Include="..\deps\CppFmt\format.cc" />
-    <ClCompile Include="..\deps\CppFmt\posix.cc" />
-    <ClCompile Include="..\deps\Luna\crucible.cc" />
-    <ClCompile Include="..\asgmt-6b\Edge.cpp" />
-    <ClCompile Include="..\asgmt-6b\Testing.cpp" />
-    <ClCompile Include="..\asgmt-6b\WGraph.cpp" />
+    <ClCompile Include="$(SolutionDir)asgmt-5\lib\priority-queue.cc" />
+    <ClCompile Include="$(SolutionDir)deps\CppFmt\format.cc" />
+    <ClCompile Include="$(SolutionDir)deps\CppFmt\posix.cc" />
+    <ClCompile Include="$(SolutionDir)deps\Luna\crucible.cc" />
+    <ClCompile Include="$(SolutionDir)asgmt-6b\Edge.cpp" />
+    <ClCompile Include="$(SolutionDir)asgmt-6b\Testing.cpp" />
+    <ClCompile Include="$(SolutionDir)asgmt-6b\WGraph.cpp" />
     <ClCompile Include="main.cc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\deps\Luna\exp.inl" />
-    <None Include="..\asgmt-6b\data-files\CitiesG.xlsx" />
-    <None Include="..\asgmt-6b\data-files\TestG.xlsx" />
+    <None Include="$(SolutionDir)deps\Luna\exp.inl" />
+    <None Include="$(SolutionDir)asgmt-6b\data-files\CitiesG.xlsx" />
+    <None Include="$(SolutionDir)asgmt-6b\data-files\TestG.xlsx" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\asgmt-6b\data-files\CitiesG.txt" />
-    <Text Include="..\asgmt-6b\data-files\Sample.txt" />
-    <Text Include="..\asgmt-6b\data-files\TestG.txt" />
+    <Text Include="$(SolutionDir)asgmt-6b\data-files\CitiesG.txt" />
+    <Text Include="$(SolutionDir)asgmt-6b\data-files\Sample.txt" />
+    <Text Include="$(SolutionDir)asgmt-6b\data-files\TestG.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

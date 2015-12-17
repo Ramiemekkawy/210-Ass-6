@@ -31,75 +31,78 @@
     <Filter Include="Source Files\lib">
       <UniqueIdentifier>{8e84df14-e94e-4ce1-9b18-883732b7c8d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\lib\PQ">
+      <UniqueIdentifier>{577d79a7-c414-44b4-96a4-871332e2270c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\deps\CppFmt\format.h">
+    <ClInclude Include="$(SolutionDir)asgmt-6b\Edge.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)asgmt-6b\WGraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)deps\CppFmt\format.h">
       <Filter>Source Files\deps\cpp-fmt</Filter>
     </ClInclude>
-    <ClInclude Include="..\deps\CppFmt\posix.h">
+    <ClInclude Include="$(SolutionDir)deps\CppFmt\posix.h">
       <Filter>Source Files\deps\cpp-fmt</Filter>
     </ClInclude>
-    <ClInclude Include="..\deps\Luna\Utils.hh">
+    <ClInclude Include="$(SolutionDir)deps\Luna\Utils.hh">
       <Filter>Source Files\deps\luna</Filter>
     </ClInclude>
-    <ClInclude Include="..\deps\Luna\Crucible.hh">
+    <ClInclude Include="$(SolutionDir)deps\Luna\Crucible.hh">
       <Filter>Source Files\deps\luna</Filter>
     </ClInclude>
-    <ClInclude Include="..\asgmt-6b\Edge.h">
-      <Filter>Source Files\lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\asgmt-6b\WGraph.h">
-      <Filter>Source Files\lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\asgmt-5\lib\priority-queue.hh">
-      <Filter>Source Files\lib</Filter>
+    <ClInclude Include="$(SolutionDir)asgmt-5\lib\priority-queue.hh">
+      <Filter>Source Files\lib\PQ</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\deps\CppFmt\posix.cc">
-      <Filter>Source Files\deps\cpp-fmt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\deps\CppFmt\format.cc">
-      <Filter>Source Files\deps\cpp-fmt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\deps\Luna\crucible.cc">
-      <Filter>Source Files\deps\luna</Filter>
-    </ClCompile>
     <ClCompile Include="main.cc">
       <Filter>Source Files\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\asgmt-6b\Edge.cpp">
+    <ClCompile Include="$(SolutionDir)deps\CppFmt\format.cc">
+      <Filter>Source Files\deps\cpp-fmt</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)deps\CppFmt\posix.cc">
+      <Filter>Source Files\deps\cpp-fmt</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)deps\Luna\crucible.cc">
+      <Filter>Source Files\deps\luna</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)asgmt-6b\Edge.cpp">
       <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="..\asgmt-6b\Testing.cpp">
+    <ClCompile Include="$(SolutionDir)asgmt-6b\Testing.cpp">
       <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="..\asgmt-6b\WGraph.cpp">
+    <ClCompile Include="$(SolutionDir)asgmt-6b\WGraph.cpp">
       <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="..\asgmt-5\lib\priority-queue.cc">
-      <Filter>Source Files\lib</Filter>
+    <ClCompile Include="$(SolutionDir)asgmt-5\lib\priority-queue.cc">
+      <Filter>Source Files\lib\PQ</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\deps\Luna\exp.inl">
+    <None Include="$(SolutionDir)asgmt-6b\data-files\CitiesG.xlsx">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="$(SolutionDir)asgmt-6b\data-files\TestG.xlsx">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="$(SolutionDir)deps\Luna\exp.inl">
       <Filter>Source Files\deps\luna</Filter>
     </None>
-    <None Include="..\asgmt-6b\data-files\CitiesG.xlsx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\asgmt-6b\data-files\TestG.xlsx">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\asgmt-6b\data-files\CitiesG.txt">
+    <Text Include="$(SolutionDir)asgmt-6b\data-files\CitiesG.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="..\asgmt-6b\data-files\Sample.txt">
+    <Text Include="$(SolutionDir)asgmt-6b\data-files\Sample.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="..\asgmt-6b\data-files\TestG.txt">
+    <Text Include="$(SolutionDir)asgmt-6b\data-files\TestG.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
