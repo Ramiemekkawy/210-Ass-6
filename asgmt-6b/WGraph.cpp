@@ -6,7 +6,7 @@
 #include <string>		// For file name
 #include <iomanip>
 #include <queue>    // For BFS
-
+#include <stack>
 #include <tuple>
 
 #include "Edge.h"	// Deinition of an Edge
@@ -130,6 +130,8 @@ void WGraph::shortest_path( int s )
 {
 	stdx::BiHeap2<Weight, Weight> q;
 
+	this->distance[s] = 0;
+
 	for ( Weight v = 0; v < nVertices; ++v ) {
 		this->distance[v] = (unsigned) -1;
 		via[v] = -1;
@@ -161,9 +163,16 @@ void WGraph::print_walk_path( int source, int target ) const
 {
 	auto target_p = std::find( std::begin( via ), std::end( via ), target ) - std::begin( via );
 
-	while ( via[target_p] != -1 ) {
-		fmt::print( ". {}\n", via[target_p] );
+	std::stack<char> st;
+
+	while ( target_p != -1 ) {
+		st.push( Vname( target_p ) );
 		target_p = via[target_p];
+	}
+
+	while ( !st.empty() ) {
+		fmt::print( ". {}\n", st.top() );
+		st.pop();
 	}
 }
 
