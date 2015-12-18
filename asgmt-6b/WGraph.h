@@ -42,7 +42,7 @@ public:
 	void print_edges() const;			// Display Graph edges
 	std::vector<std::pair<int, int>> WGraph::bf_trav( int i = 1 );
 	void calc_shortest_paths( int s );			// Shortest paths from node (s)
-	void print_walk_path( int s, int i );
+	void print_walk_path( Weight s, Weight i );
 //______________________________________________________________________________________________
 
 private:
@@ -51,7 +51,6 @@ private:
 	std::vector<Edge> edges;			// Array of non-zero edges
 	std::vector<Weight> distance;		// Distance array for shortest paths  
 	std::vector<int> prev;			// Via array for shortest paths  
-	std::vector<bool> processed;		// processed array for shortest paths  
 	void update_edges();			// Get Non-Zero edges from adjacency matrix  
 	std::string WGraph::to_string( Edge e ) const;	// Output an edge (e)  
 };

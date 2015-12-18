@@ -257,10 +257,10 @@ namespace stdx
 		bool set_priority( const Data& target, Key newp )
 		{
 			Idx id = -1;
-			for ( auto& e : _q ) {
-				if ( e.data == target ) {
-					e.key = newp;
-					id = &e - &_q[0];
+			for ( auto sti = ++_q.begin(), ei = _q.end(); sti != ei; ++sti ) {
+				if ( sti->data == target ) {
+					sti->key = newp;
+					id = (Idx) (sti - _q.begin());
 					break;
 				}
 			}

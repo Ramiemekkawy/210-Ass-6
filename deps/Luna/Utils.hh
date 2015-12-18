@@ -54,6 +54,25 @@ inline void boo()
 	s = S3();
 }
 /**/
+
+template<class T>
+inline T unless( T& fst, T& def )
+{
+	if ( !!fst )
+		return fst;
+	else
+		return def;
+}
+
+template<class T>
+inline T unless( T const& fst, T const& def )
+{
+	if ( !!fst )
+		return fst;
+	else
+		return def;
+}
+
 namespace mars
 {
 

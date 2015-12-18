@@ -57,10 +57,10 @@ void WGraph::load_from_disk( string fname )
 	// Input weights from the file into a 2-D 
 	// Adjacency Matrix of V rows and V columns
 	for ( size_t r = 0; r < nVertices; r++ ) {
-		for ( size_t s = 0; s < nVertices; s++ ) {
+		for ( size_t c = 0; c < nVertices; c++ ) {
 			if ( !source.fail() && !source.eof() ) {
 				// get V weights from columns in file
-				source >> adjMatrix[r][s]; 	// put V weights in adjacency matrix at row [r] column [s]
+				source >> adjMatrix[r][c]; 	// put V weights in adjacency matrix at row [r] column [s]
 			}
 			else
 				break;
@@ -141,45 +141,48 @@ void WGraph::print_edges() const
 // uses Dijkstra's Algorithm
 void WGraph::calc_shortest_paths( int source )
 {
+	using Idx = unsigned long;
 	// the core of the algorithm; our self-sorting/bubbling set of vertices
-	stdx::PriorityQueue<Weight, Weight> q;
-
+	stdx::PriorityQueue<Idx, Idx> q;
+	std::vector<bool> processed( nVertices, false );
 	// populate the set 
-	for ( Weight v = 0; v < nVertices; ++v ) {
-		// direct distance.
-		this->distance[v] = adjMatrix[source][v];
-		if ( distance[v] == 0 )
-			// infinite distance
+	for ( size_t v = 0; v < nVertices; ++v ) {
+		// infinite distance
+		distance[v] = adjMatrix[source][v];
+		if ( distance[v] == 0 ) {
 			distance[v] = (unsigned) -1;
-		// default previous or 'via' step.
-		prev[v] = source;
+			prev[v] = -1;
+		}
+		else
+			prev[v] = source;
 		// push vertex 'v' with weight from source 's' = 'distance[v]'
-		q.push( { distance[v], v } );
+		q.push( { distance[v], (Idx)v } );
 	}
 
 	// distance from source to source = 0
 	this->distance[source] = 0;
-
+	prev[source] = -1;
 	// reset priority/weight of 's'/source to 0.
 	q.set_priority( source, 0 );
 
 	while ( !q.empty() ) {
 		// pull one vertex and work on neighbors
 		auto u = q.pull().unwrap();
-
+		processed[u.data] = true;
 		// for each neighbor
-		for ( size_t nb = 0; nb < this->nVertices; ++nb ) {
-			// check direct distance from source 's' to neighbor 'nb' vs distance
-			// from 's' to current vertex ('u') + distance between
-			// 'u' and 'nb'.
-			auto alt = distance[u.data] + adjMatrix[u.data][nb];
-			if ( alt < distance[nb] ) {
-				// update shortest paths from 's' to 'nb' to the new shortest path
+		for ( size_t v = 0; v < this->nVertices; ++v ) {
+			// check direct distance from source 's' to neighbor 'v' vs distance
+			// from 's' to current vertex ('u') + distance between 'u' and 'v'.
+			if ( processed[v] || distance[u.data] == (unsigned)-1 || adjMatrix[u.data][v] == 0 )
+				continue;
+			auto alt = distance[u.data] + adjMatrix[u.data][v];
+			if ( alt < distance[v] ) {
+				// update shortest paths from 's' to 'v' to the new shortest path
 				// via 'u'.
-				distance[nb] = alt;
-				prev[nb] = u.data;
+				distance[v] = alt;
+				prev[v] = u.data;
 
-				q.set_priority( u.data, alt );
+				q.set_priority( v, alt );
 			}
 		}
 	}
@@ -188,16 +191,18 @@ void WGraph::calc_shortest_paths( int source )
 }
 
 // Print path (vertex names) from source (s) to destination (i)
-void WGraph::print_walk_path( int source, int target )
+void WGraph::print_walk_path( Weight source, Weight target )
 {
 	//auto target_p = std::find( std::begin( prev ), std::end( prev ), target ) - std::begin( prev );
 
 	if ( source < 0 || source >= nVertices
-		 || target < 0 || target >= nVertices )
+		 || target < 0 || target >= nVertices ) {
 		fmt::print( "\nError! Input source '{}'"
 					" and target '{}' invalid for this graph.\n",
 					source,
 					target );
+		return;
+	}
 
 	this->calc_shortest_paths( source );
 
@@ -209,14 +214,24 @@ void WGraph::print_walk_path( int source, int target )
 	cout << "]\n";
 	/**/
 
-	std::stack<char> st;
 
- 	while ( target != source ) {
+	std::stack<char> st;
+	auto old_target = target;
+	while ( true ) {
+		if ( target == source ) {
+			st.push( v_name( target ) );
+			break;
+		}
+		else if ( target == -1 ) {
+			fmt::print( "\nPath not found between source and target ({}, {}).\n",
+						v_name( source ), v_name( old_target ) );
+			return;
+		}
 		st.push( v_name( target ) );
 		target = prev[target];
-	} 
+	}
 
-	fmt::print( "==> {}, ", v_name( source ) );
+	fmt::print( "\n({}, {}) ==> ", v_name( source ), v_name( old_target ) );
 	while ( !st.empty() ) {
 		fmt::print( "{}, ", st.top() );
 		st.pop();
