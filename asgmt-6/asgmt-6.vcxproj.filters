@@ -36,12 +36,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(SolutionDir)asgmt-6b\Edge.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SolutionDir)asgmt-6b\WGraph.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="$(SolutionDir)deps\CppFmt\format.h">
       <Filter>Source Files\deps\cpp-fmt</Filter>
     </ClInclude>
@@ -56,6 +50,12 @@
     </ClInclude>
     <ClInclude Include="$(SolutionDir)asgmt-5\lib\priority-queue.hh">
       <Filter>Source Files\lib\PQ</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)asgmt-6b\WGraph.h">
+      <Filter>Source Files\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)asgmt-6b\Edge.h">
+      <Filter>Source Files\lib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

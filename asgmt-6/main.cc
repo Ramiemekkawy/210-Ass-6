@@ -14,5 +14,5 @@ int test1();
 
 int main()
 {
-
+	test1();
 }

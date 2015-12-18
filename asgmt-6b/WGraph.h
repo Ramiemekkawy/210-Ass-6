@@ -20,11 +20,13 @@ ________________________________________________________________________________
 #ifndef GRAPHS_H
 #define GRAPHS_H
 #include <string>
+#include <vector>
+
 #include "Edge.h"
 using namespace std;
 
-const int vMax = 50;					// Maximum number of vertices
-const int eMax = vMax*(vMax - 1) / 2;		// Maximum number of edges
+//const int vMax = 50;					// Maximum number of vertices
+//const int eMax = vMax*(vMax - 1) / 2;		// Maximum number of edges
 
 class WGraph {
 public:
@@ -38,18 +40,18 @@ public:
 	int  n_vertices() const;		// Get number of vertices (V)
 	int  n_edges() const;		// Get Number of Non-zero edges (E)
 	void print_edges() const;			// Display Graph edges
-	void bf_trav( int i = 1 );				// Breadth First Search Traversal (BFS) overloaded to traverse from given vertex
+	std::vector<std::pair<int, int>> WGraph::bf_trav( int i = 1 );
 	void shortest_path( int s );			// Shortest paths from node (s)
 
 //______________________________________________________________________________________________
 
 private:
 	int nVertices, nEdges;				// No.of vertices (V) and edges (E) 
-	Weight adjMatrix[vMax][vMax];	// Adjacency Matrix
-	Edge edges[eMax];			// Array of non-zero edges
-	Weight distance[vMax];		// Distance array for shortest paths  
-	int via[vMax];			// Via array for shortest paths  
-	bool processed[vMax];		// processed array for shortest paths  
+	std::vector<std::vector<Weight>> adjMatrix;	// Adjacency Matrix
+	std::vector<Edge> edges;			// Array of non-zero edges
+	std::vector<Weight> distance;		// Distance array for shortest paths  
+	std::vector<int> via;			// Via array for shortest paths  
+	std::vector<bool> processed;		// processed array for shortest paths  
 	void update_edges();			// Get Non-Zero edges from adjacency matrix  
 	std::string WGraph::to_string( Edge e ) const;	// Output an edge (e)  
 	void print_walk_path( int s, int i ) const;	// Print path from source (s) to destination (i)  

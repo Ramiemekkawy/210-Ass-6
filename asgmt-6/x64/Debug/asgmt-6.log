@@ -1,0 +1,42 @@
+﻿  WGraph.cpp
+d:\a2\github\210-ass-6\asgmt-6b\wgraph.cpp(100): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+d:\a2\github\210-ass-6\asgmt-6b\wgraph.cpp(138): warning C4018: '<': signed/unsigned mismatch
+d:\a2\github\210-ass-6\asgmt-5\lib\priority-queue.hh(219): warning C4018: '<': signed/unsigned mismatch
+  d:\a2\github\210-ass-6\asgmt-5\lib\priority-queue.hh(216): note: while compiling class template member function 'auto stdx::BiHeap2<Weight,Weight,std::less<Key>>::push(const stdx::BiHeap2<Weight,Key,std::less<Key>>::Elt &)'
+          with
+          [
+              Key=Weight
+          ]
+  d:\a2\github\210-ass-6\asgmt-6b\wgraph.cpp(134): note: see reference to class template instantiation 'stdx::BiHeap2<Weight,Weight,std::less<Key>>' being compiled
+          with
+          [
+              Key=Weight
+          ]
+d:\a2\github\210-ass-6\asgmt-6b\wgraph.cpp(172): warning C4244: 'argument': conversion from '__int64' to 'const int', possible loss of data
+d:\a2\github\210-ass-6\asgmt-5\lib\priority-queue.hh(46): warning C4018: '<': signed/unsigned mismatch
+  d:\a2\github\210-ass-6\asgmt-5\lib\priority-queue.hh(43): note: while compiling class template member function 'auto stdx::BiHeap<Data,Func>::push(const Ty &)'
+          with
+          [
+              Data=float,
+              Func=stdx::less_than,
+              Ty=float
+          ]
+  d:\a2\github\210-ass-6\asgmt-5\lib\priority-queue.hh(390): note: see reference to class template instantiation 'stdx::BiHeap<Data,Func>' being compiled
+          with
+          [
+              Data=float,
+              Func=stdx::less_than
+          ]
+  d:\a2\github\210-ass-6\asgmt-5\lib\priority-queue.hh(407): note: see reference to function template instantiation 'bool stdx::heap_sort_ip<stdx::less_than,float>(std::vector<float,std::allocator<_Ty>> *const ,Func)' being compiled
+          with
+          [
+              _Ty=float,
+              Func=stdx::less_than
+          ]
+  Generating Code...
+  Compiling...
+  Testing.cpp
+  Edge.cpp
+  Generating Code...
+  asgmt-6.vcxproj -> D:\A2\GitHub\210-Ass-6\x64\Debug\asgmt-6.exe
+  asgmt-6.vcxproj -> D:\A2\GitHub\210-Ass-6\x64\Debug\asgmt-6.pdb (Partial PDB)

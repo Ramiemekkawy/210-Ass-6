@@ -37,35 +37,35 @@
       <Filter>Source Files\lib</Filter>
     </ClCompile>
     <ClCompile Include="$(SolutionDir)deps\CppFmt\format.cc">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\deps\cpp-fmt</Filter>
     </ClCompile>
     <ClCompile Include="$(SolutionDir)deps\CppFmt\posix.cc">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\deps\cpp-fmt</Filter>
     </ClCompile>
     <ClCompile Include="$(SolutionDir)deps\Luna\crucible.cc">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\deps\luna</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="$(SolutionDir)deps\Luna\exp.inl">
-      <Filter>Header Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\priority-queue.hh">
       <Filter>Source Files\lib</Filter>
     </ClInclude>
-    <ClInclude Include="$(SolutionDir)deps\CppFmt\format.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SolutionDir)deps\CppFmt\posix.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="$(SolutionDir)deps\Luna\Crucible.hh">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\deps\luna</Filter>
     </ClInclude>
     <ClInclude Include="$(SolutionDir)deps\Luna\Utils.hh">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\deps\luna</Filter>
     </ClInclude>
+    <ClInclude Include="$(SolutionDir)deps\CppFmt\posix.h">
+      <Filter>Source Files\deps\cpp-fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)deps\CppFmt\format.h">
+      <Filter>Source Files\deps\cpp-fmt</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(SolutionDir)deps\Luna\exp.inl">
+      <Filter>Source Files\deps\luna</Filter>
+    </None>
   </ItemGroup>
 </Project>

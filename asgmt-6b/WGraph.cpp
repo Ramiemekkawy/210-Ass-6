@@ -36,8 +36,7 @@ char WGraph::Vname( const int s ) const
 // Graph is stored in adjacency matrix
 void WGraph::load_from_disk( string fname )
 {
-   // Local data ...
-	Weight wi;
+	// Local data ...
 	ifstream source( fname );
 
 	if ( source.fail() ) {
@@ -45,25 +44,33 @@ void WGraph::load_from_disk( string fname )
 		return;
 	}
 	source >> nVertices;	// Read no. of verices (V)
-
+	adjMatrix.resize( nVertices );
+	for ( auto& a : adjMatrix )
+		a.resize( nVertices );
 	// Input weights from the file into a 2-D 
 	// Adjacency Matrix of V rows and V columns
-	while ( !source.eof() ) {
-		for ( int r = 0; r < nVertices; r++ ) {
-			for ( int s = 0; s < nVertices; s++ ) {
-				source >> wi; // get V weights from columns in file
-				adjMatrix[r][s] = wi; 	// put V weights in adjacency matrix at row [r] column [s]
+	for ( int r = 0; r < nVertices; r++ ) {
+		for ( int s = 0; s < nVertices; s++ ) {
+			if ( !source.fail() && !source.eof() ) {
+				// get V weights from columns in file
+				source >> adjMatrix[r][s]; 	// put V weights in adjacency matrix at row [r] column [s]
 			}
+			else
+				break;
 		}
 	}
-
-	source.close();// close file
+	
+	//source.close();// close file
 	update_edges();
 }
 
 // Display Adjacency Matrix
 void WGraph::print_graph() const
 {
+	if ( nVertices < 1 ) {
+		fmt::print( "\n<!>Fatal Error! Not enough time to study... Also, your graph is fun-sized (0 or less)." );
+		return;
+	}
 	int i, j;
 	cout << "Adjacency Matrix\n";
 	for ( i = 0; i < nVertices; i++ ) {
@@ -78,7 +85,6 @@ void WGraph::print_graph() const
 void WGraph::update_edges()
 {
 	int r, c;
-	int i = 0;
 	Weight weight;
 
 	// Only examine weights above the diagonal 
@@ -87,14 +93,11 @@ void WGraph::update_edges()
 			weight = adjMatrix[r][c];
 			if ( weight > 0 ) {
 				// save (r,c,weight) in edges[i]
-				edges[i].u = r;
-				edges[i].v = c;
-				edges[i].w = weight;
-				i++;
+				edges.emplace_back( r, c, weight );
 			}
 		}
 
-	nEdges = i;		// Number of non-zero edges
+	nEdges = edges.size();		// Number of non-zero edges
 
 }
 
@@ -177,10 +180,10 @@ void WGraph::print_walk_path( int source, int target ) const
 }
 
 // Breadth First Search Traversal overload that outputs traversal as queue pops
-void WGraph::bf_trav( int i )
+std::vector<std::pair<int, int>> WGraph::bf_trav( int i )
 {
-	int trav_hist[vMax];
-	int order = 0;
+	std::vector<int> trav_hist( nVertices );
+	int order = -1;
 	std::queue<Weight> Q;
 	int
 		t;
@@ -200,8 +203,21 @@ void WGraph::bf_trav( int i )
 		for ( t = 0; t < nVertices; t++ )  // Scan from left to right
 			if ( adjMatrix[i][t] != 0 ) {
 				if ( trav_hist[t] == unseen ) {
-					Q.push( t ); trav_hist[t] = hold;
+					Q.push( t );
+					trav_hist[t] = hold;
 				}
 			}
 	}
+
+	std::vector<std::pair<int, int>> rv;
+	for ( int i = 0; i < trav_hist.size(); ++i ) {
+		if ( trav_hist[i] >= 0 )
+			rv.emplace_back( trav_hist[i], i );
+	}
+
+	stdx::heap_sort_ip( &rv,
+						[]( std::pair<int, int> in1, std::pair<int, int> in2 ) { return in1.first < in2.first; }
+	);
+
+	return rv;
 }
