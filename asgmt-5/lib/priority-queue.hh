@@ -166,7 +166,7 @@ namespace stdx
 	template<
 		typename Data,
 		typename Key = unsigned int,
-		typename Pred = std::less<Key>
+		typename Pred = std::less<>
 	>
 		// Turn into a Fibonacci heap.
 	class PriorityQueue {
@@ -189,6 +189,7 @@ namespace stdx
 			Elt( Key k, Data d ) : key( std::move( k ) ), data( std::move( d ) ) {}
 			Elt( std::pair<Key, Data> p ) : Elt( p.first, p.second ) {}
 		};
+
 		static fn newEmpty() -> This
 		{
 			return This();
@@ -342,7 +343,7 @@ namespace stdx
 	const Pred stdx::BiHeap<T, Pred>::_cmp = Pred();
 	/**/
 	template<class T>
-	using MaxHeap = BiHeap<T, std::greater<T>>;
+	using MaxHeap = BiHeap<T, std::greater<>>;
 
 	template<class T>
 	using MinHeap = BiHeap<T>;
@@ -366,8 +367,8 @@ namespace stdx
 	/// HeapSort in-place; Default comparison requires 'operator<' defined
 	/// But allows functor, function pointer and lambda predicates as well
 	/// given that they guarantee a total order for the data-type being sorted.
-	template<class Data = void, class Func = std::less<Data>>
-	bool heap_sort_ip( std::vector<Data> *const inout, Func fun = std::less<Data>() )
+	template<class Data = void, class Func = std::less<>>
+	bool heap_sort_ip( std::vector<Data> *const inout, Func fun = std::less<>() )
 	{
 		BiHeap<Data, Func> heap( fun );
 

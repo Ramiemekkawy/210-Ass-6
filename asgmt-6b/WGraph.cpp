@@ -50,8 +50,8 @@ void WGraph::load_from_disk( string fname )
 		a.resize( nVertices );
 	// Input weights from the file into a 2-D 
 	// Adjacency Matrix of V rows and V columns
-	for ( int r = 0; r < nVertices; r++ ) {
-		for ( int s = 0; s < nVertices; s++ ) {
+	for ( size_t r = 0; r < nVertices; r++ ) {
+		for ( size_t s = 0; s < nVertices; s++ ) {
 			if ( !source.fail() && !source.eof() ) {
 				// get V weights from columns in file
 				source >> adjMatrix[r][s]; 	// put V weights in adjacency matrix at row [r] column [s]
@@ -126,34 +126,50 @@ std::string WGraph::to_string( Edge e ) const
 // Display Graph Edges
 void WGraph::print_edges() const
 {
-	cout << "Graph Edges\n";
-	for ( int i = 0; i < nEdges; i++ )
+	cout << "Graph Edges:\n";
+	for ( size_t i = 0; i < nEdges; i++ )
 		cout << to_string( edges[i] );
 }
 
 // Shortest paths from node s
 // uses Dijkstra's Algorithm
-void WGraph::shortest_path( int s )
+void WGraph::calc_shortest_paths( int s )
 {
+	// the core of the algorithm; our self-sorting/bubbling set of vertices
 	stdx::PriorityQueue<Weight, Weight> q;
 
-	this->distance[s] = 0;
-
+	// populate the set 
 	for ( Weight v = 0; v < nVertices; ++v ) {
-		this->distance[v] = (unsigned) -1;
+		// direct distance.
+		this->distance[v] = adjMatrix[s][v];
+		if ( distance[v] == 0 )
+			// infinite distance
+			distance[v] = (unsigned) -1;
+		// unknown previous or 'via' step.
 		prev[v] = -1;
+		// push vertex 'v' with weight from source 's' = 'distance[v]'
 		q.push( { distance[v], v } );
 	}
 
+	// distance from source to source = 0
 	this->distance[s] = 0;
 
+	// reset priority/weight of 's'/source to 0.
+	q.set_priority( s, 0 );
+
 	while ( !q.empty() ) {
+		// pull one vertex and work on neighbors
 		auto u = q.pull().unwrap();
 
-		// for neighbors
-		for ( auto nb = 0; nb < this->nVertices; ++nb ) {
+		// for each neighbor
+		for ( size_t nb = 0; nb < this->nVertices; ++nb ) {
+			// check direct distance from source 's' to neighbor 'nb' vs distance
+			// from 's' to current vertex ('u') + distance between
+			// 'u' and 'nb'.
 			auto alt = distance[u.data] + adjMatrix[u.data][nb];
 			if ( alt < distance[nb] ) {
+				// update shortest paths from 's' to 'nb' to the new shortest path
+				// via 'u'.
 				distance[nb] = alt;
 				prev[nb] = u.data;
 
@@ -193,7 +209,7 @@ std::vector<std::pair<int, int>> WGraph::bf_trav( int i )
 		unseen = -1,
 		hold = -2;
 
-	for ( int k = 0; k < nVertices; k++ )
+	for ( size_t k = 0; k < nVertices; k++ )
 		trav_hist[k] = unseen;
 
 	Q.push( i );
@@ -204,7 +220,7 @@ std::vector<std::pair<int, int>> WGraph::bf_trav( int i )
 		trav_hist[i] = ++order;
 		
 		// push all the neighbors
-		for ( int t = 0; t < nVertices; t++ ) {  // Scan from left to right
+		for ( size_t t = 0; t < nVertices; t++ ) {  // Scan from left to right
 			if ( adjMatrix[i][t] != 0 ) {
 				if ( trav_hist[t] == unseen ) {
 					Q.push( t );

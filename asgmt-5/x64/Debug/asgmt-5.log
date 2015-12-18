@@ -1,4 +1,24 @@
-﻿  crucible.cc
+﻿  priority-queue.cc
+f:\unib\cs210\cs210b\asgmt-5\lib\priority-queue.hh(30): warning C4018: '<': signed/unsigned mismatch
+  f:\unib\cs210\cs210b\asgmt-5\lib\priority-queue.hh(27): note: while compiling class template member function 'auto stdx::BiHeap<Data,Func>::push(const Ty &)'
+          with
+          [
+              Data=float,
+              Func=std::less<void>,
+              Ty=float
+          ]
+  f:\unib\cs210\cs210b\asgmt-5\lib\priority-queue.hh(373): note: see reference to class template instantiation 'stdx::BiHeap<Data,Func>' being compiled
+          with
+          [
+              Data=float,
+              Func=std::less<void>
+          ]
+  f:\unib\cs210\cs210b\asgmt-5\lib\priority-queue.hh(390): note: see reference to function template instantiation 'bool stdx::heap_sort_ip<float,std::less<void>>(std::vector<float,std::allocator<_Ty>> *const ,Func)' being compiled
+          with
+          [
+              _Ty=float,
+              Func=std::less<void>
+          ]
   Generating Code...
   Compiling...
   main.cc
@@ -12,28 +32,6 @@ f:\unib\cs210\cs210b\asgmt-5\lib\priority-queue.hh(30): warning C4018: '<': sign
           with
           [
               Ty=GSMap::Pixel
-          ]
-  priority-queue.cc
-f:\unib\cs210\cs210b\asgmt-5\lib\priority-queue.hh(30): warning C4018: '<': signed/unsigned mismatch
-  f:\unib\cs210\cs210b\asgmt-5\lib\priority-queue.hh(27): note: while compiling class template member function 'auto stdx::BiHeap<Data,Func>::push(const Ty &)'
-          with
-          [
-              Data=float,
-              Func=std::less<float>,
-              Ty=float
-          ]
-  f:\unib\cs210\cs210b\asgmt-5\lib\priority-queue.hh(372): note: see reference to class template instantiation 'stdx::BiHeap<Data,Func>' being compiled
-          with
-          [
-              Data=float,
-              Func=std::less<float>
-          ]
-  f:\unib\cs210\cs210b\asgmt-5\lib\priority-queue.hh(389): note: see reference to function template instantiation 'bool stdx::heap_sort_ip<float,std::less<Data>>(std::vector<float,std::allocator<_Ty>> *const ,Func)' being compiled
-          with
-          [
-              Data=float,
-              _Ty=float,
-              Func=std::less<float>
           ]
   Generating Code...
   asgmt-5.vcxproj -> F:\UniB\CS210\CS210b\x64\Debug\asgmt-5.exe

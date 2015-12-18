@@ -41,7 +41,7 @@ public:
 	int  n_edges() const;		// Get Number of Non-zero edges (E)
 	void print_edges() const;			// Display Graph edges
 	std::vector<std::pair<int, int>> WGraph::bf_trav( int i = 1 );
-	void shortest_path( int s );			// Shortest paths from node (s)
+	void calc_shortest_paths( int s );			// Shortest paths from node (s)
 
 //______________________________________________________________________________________________
 
