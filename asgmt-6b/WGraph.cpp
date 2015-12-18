@@ -141,27 +141,30 @@ void WGraph::print_edges() const
 // uses Dijkstra's Algorithm
 void WGraph::calc_shortest_paths( int source )
 {
-	using Idx = unsigned long;
+	using Idx = long;
 	// the core of the algorithm; our self-sorting/bubbling set of vertices
 	stdx::PriorityQueue<Idx, Idx> q;
 	std::vector<bool> processed( nVertices, false );
+
+	auto const INFTY = std::numeric_limits<long>::max();
+
 	// populate the set 
 	for ( size_t v = 0; v < nVertices; ++v ) {
 		// infinite distance
 		distance[v] = adjMatrix[source][v];
-		if ( distance[v] == 0 ) {
-			distance[v] = (unsigned) -1;
+		if ( distance[v] != 0 ) prev[v] = source;
+		else {
 			prev[v] = -1;
+			distance[v] = INFTY;
 		}
-		else
-			prev[v] = source;
 		// push vertex 'v' with weight from source 's' = 'distance[v]'
-		q.push( { distance[v], (Idx)v } );
+		q.push( { distance[v], (Idx) v } );
 	}
 
 	// distance from source to source = 0
 	this->distance[source] = 0;
 	prev[source] = -1;
+
 	// reset priority/weight of 's'/source to 0.
 	q.set_priority( source, 0 );
 
@@ -169,12 +172,17 @@ void WGraph::calc_shortest_paths( int source )
 		// pull one vertex and work on neighbors
 		auto u = q.pull().unwrap();
 		processed[u.data] = true;
+
+		if ( distance[u.data] == INFTY )
+			continue;
+
 		// for each neighbor
-		for ( size_t v = 0; v < this->nVertices; ++v ) {
+		for ( Idx v = 0; v < this->nVertices; ++v ) {
+			if ( processed[v] || adjMatrix[u.data][v] == 0 )
+				continue;
+
 			// check direct distance from source 's' to neighbor 'v' vs distance
 			// from 's' to current vertex ('u') + distance between 'u' and 'v'.
-			if ( processed[v] || distance[u.data] == (unsigned)-1 || adjMatrix[u.data][v] == 0 )
-				continue;
 			auto alt = distance[u.data] + adjMatrix[u.data][v];
 			if ( alt < distance[v] ) {
 				// update shortest paths from 's' to 'v' to the new shortest path
@@ -231,7 +239,7 @@ void WGraph::print_walk_path( Weight source, Weight target )
 		target = prev[target];
 	}
 
-	fmt::print( "\n({}, {}) ==> ", v_name( source ), v_name( old_target ) );
+	fmt::print( "\n({}, {}), w: {} ==> ", v_name( source ), v_name( old_target ), distance[old_target] );
 	while ( !st.empty() ) {
 		fmt::print( "{}, ", st.top() );
 		st.pop();

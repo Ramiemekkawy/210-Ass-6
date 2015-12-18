@@ -8,7 +8,7 @@ __________________________________________________________________
 #ifndef EDGE_H
 #define EDGE_H
 
-typedef unsigned int Weight;		// weights are positive integers
+using Weight = long;		// weights are positive integers
 
 class Edge {
 public:
