@@ -1,0 +1,35 @@
+﻿  WGraph.cpp
+f:\unib\cs210\cs210b\asgmt-6b\wgraph.cpp(133): warning C4018: '<': signed/unsigned mismatch
+f:\unib\cs210\cs210b\asgmt-5\lib\priority-queue.hh(219): warning C4018: '<': signed/unsigned mismatch
+  f:\unib\cs210\cs210b\asgmt-5\lib\priority-queue.hh(216): note: while compiling class template member function 'auto stdx::BiHeap2<Weight,Weight,std::less<Key>>::push(const stdx::BiHeap2<Weight,Key,std::less<Key>>::Elt &)'
+          with
+          [
+              Key=Weight
+          ]
+  f:\unib\cs210\cs210b\asgmt-6b\wgraph.cpp(131): note: see reference to class template instantiation 'stdx::BiHeap2<Weight,Weight,std::less<Key>>' being compiled
+          with
+          [
+              Key=Weight
+          ]
+f:\unib\cs210\cs210b\asgmt-5\lib\priority-queue.hh(46): warning C4018: '<': signed/unsigned mismatch
+  f:\unib\cs210\cs210b\asgmt-5\lib\priority-queue.hh(43): note: while compiling class template member function 'auto stdx::BiHeap<Data,Func>::push(const Ty &)'
+          with
+          [
+              Data=float,
+              Func=stdx::less_than,
+              Ty=float
+          ]
+  f:\unib\cs210\cs210b\asgmt-5\lib\priority-queue.hh(390): note: see reference to class template instantiation 'stdx::BiHeap<Data,Func>' being compiled
+          with
+          [
+              Data=float,
+              Func=stdx::less_than
+          ]
+  f:\unib\cs210\cs210b\asgmt-5\lib\priority-queue.hh(407): note: see reference to function template instantiation 'bool stdx::heap_sort_ip<stdx::less_than,float>(std::vector<float,std::allocator<_Ty>> *const ,Func)' being compiled
+          with
+          [
+              _Ty=float,
+              Func=stdx::less_than
+          ]
+  asgmt-6.vcxproj -> F:\UniB\CS210\CS210b\Debug\asgmt-6.exe
+  asgmt-6.vcxproj -> F:\UniB\CS210\CS210b\Debug\asgmt-6.pdb (Partial PDB)

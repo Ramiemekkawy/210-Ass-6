@@ -184,8 +184,9 @@ namespace stdx
 		typename Key = unsigned int,
 		typename Pred = std::less<Key>
 	>
-	class BiHeap2 {
-		using This = BiHeap2;
+		// Turn into a Fibonacci heap.
+	class PriorityQueue {
+		using This = PriorityQueue;
 		using Idx = ptrdiff_t;
 		struct Elt;	using EltOpt = pandora::Option<Elt>;
 	public:
@@ -193,12 +194,9 @@ namespace stdx
 			Key key;
 			Data data;
 			Elt() : key(), data() {}
-			template<Idx id, class T> T get() {}
-			template<> Key get<0>() { return key; }
-			template<> Data get<1>() { return data; }
 			operator std::pair<Key, Data>() const
 			{
-				return std::make_pair( key, data );
+				return{ key, data };
 			}
 			operator std::tuple<Key, Data>() const
 			{
@@ -288,10 +286,10 @@ namespace stdx
 			return true;
 		}
 
-		BiHeap2( This const& ) = default;
-		BiHeap2( This&& ) = default;
-		BiHeap2() : _q( 1 ), _last( 0 ), _cmp() {}
-		BiHeap2( Pred pred ) : _cmp( std::move( pred ) ), _last( 0 ), _q( 1 ) {}
+		PriorityQueue( This const& ) = default;
+		PriorityQueue( This&& ) = default;
+		PriorityQueue() : _q( 1 ), _last( 0 ), _cmp() {}
+		PriorityQueue( Pred pred ) : _cmp( std::move( pred ) ), _last( 0 ), _q( 1 ) {}
 	private:
 		bool _upheap( Idx id )
 		{

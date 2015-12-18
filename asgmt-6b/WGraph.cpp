@@ -26,7 +26,7 @@ WGraph::~WGraph()
 
 
 // Map vertex number (0,1,2,..) to (A,B,C,..)
-char WGraph::Vname( const int s ) const
+char WGraph::Vname( Weight s ) const
 {
 	char Vertex;
 	return Vertex = (char) (s + (int)'A');
@@ -131,7 +131,7 @@ void WGraph::print_edges() const
 // uses Dijkstra's Algorithm
 void WGraph::shortest_path( int s )
 {
-	stdx::BiHeap2<Weight, Weight> q;
+	stdx::PriorityQueue<Weight, Weight> q;
 
 	this->distance[s] = 0;
 
@@ -191,7 +191,7 @@ std::vector<std::pair<int, int>> WGraph::bf_trav( int i )
 		unseen = -1,
 		hold = -2;
 
-	for ( int k = 1; k <= nVertices; k++ )
+	for ( int k = 0; k < nVertices; k++ )
 		trav_hist[k] = unseen;
 
 	Q.push( i );

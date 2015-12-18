@@ -1,27 +1,27 @@
 ﻿  main.cc
-d:\a2\github\210-ass-6\asgmt-5\lib\priority-queue.hh(46): warning C4018: '<': signed/unsigned mismatch
-  d:\a2\github\210-ass-6\asgmt-5\lib\priority-queue.hh(43): note: while compiling class template member function 'auto stdx::BiHeap<GSMap::Pixel,stdx::less_than>::push(const Ty &)'
+f:\unib\cs210\cs210b\asgmt-5\lib\priority-queue.hh(46): warning C4018: '<': signed/unsigned mismatch
+  f:\unib\cs210\cs210b\asgmt-5\lib\priority-queue.hh(43): note: while compiling class template member function 'auto stdx::BiHeap<GSMap::Pixel,stdx::less_than>::push(const Ty &)'
           with
           [
               Ty=GSMap::Pixel
           ]
-  d:\a2\github\210-ass-6\asgmt-5\src\main.cc(76): note: see reference to class template instantiation 'stdx::BiHeap<GSMap::Pixel,stdx::less_than>' being compiled
+  f:\unib\cs210\cs210b\asgmt-5\src\main.cc(76): note: see reference to class template instantiation 'stdx::BiHeap<GSMap::Pixel,stdx::less_than>' being compiled
   priority-queue.cc
-d:\a2\github\210-ass-6\asgmt-5\lib\priority-queue.hh(46): warning C4018: '<': signed/unsigned mismatch
-  d:\a2\github\210-ass-6\asgmt-5\lib\priority-queue.hh(43): note: while compiling class template member function 'auto stdx::BiHeap<Data,Func>::push(const Ty &)'
+f:\unib\cs210\cs210b\asgmt-5\lib\priority-queue.hh(46): warning C4018: '<': signed/unsigned mismatch
+  f:\unib\cs210\cs210b\asgmt-5\lib\priority-queue.hh(43): note: while compiling class template member function 'auto stdx::BiHeap<Data,Func>::push(const Ty &)'
           with
           [
               Data=float,
               Func=stdx::less_than,
               Ty=float
           ]
-  d:\a2\github\210-ass-6\asgmt-5\lib\priority-queue.hh(390): note: see reference to class template instantiation 'stdx::BiHeap<Data,Func>' being compiled
+  f:\unib\cs210\cs210b\asgmt-5\lib\priority-queue.hh(390): note: see reference to class template instantiation 'stdx::BiHeap<Data,Func>' being compiled
           with
           [
               Data=float,
               Func=stdx::less_than
           ]
-  d:\a2\github\210-ass-6\asgmt-5\lib\priority-queue.hh(407): note: see reference to function template instantiation 'bool stdx::heap_sort_ip<stdx::less_than,float>(std::vector<float,std::allocator<_Ty>> *const ,Func)' being compiled
+  f:\unib\cs210\cs210b\asgmt-5\lib\priority-queue.hh(407): note: see reference to function template instantiation 'bool stdx::heap_sort_ip<stdx::less_than,float>(std::vector<float,std::allocator<_Ty>> *const ,Func)' being compiled
           with
           [
               _Ty=float,
@@ -31,4 +31,4 @@ d:\a2\github\210-ass-6\asgmt-5\lib\priority-queue.hh(46): warning C4018: '<': si
   posix.cc
   format.cc
   Generating Code...
-  asgmt-5.vcxproj -> D:\A2\GitHub\210-Ass-6\x64\Debug\asgmt-5.exe
+  asgmt-5.vcxproj -> F:\UniB\CS210\CS210b\x64\Debug\asgmt-5.exe
