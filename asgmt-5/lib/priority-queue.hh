@@ -256,7 +256,7 @@ namespace stdx
 
 		bool set_priority( const Data& target, Key newp )
 		{
-			Idx id;
+			Idx id = -1;
 			for ( auto& e : _q ) {
 				if ( e.data == target ) {
 					e.key = newp;
@@ -265,8 +265,9 @@ namespace stdx
 				}
 			}
 
-			if ( !_upheap( id ) )
-				_downheap( id );
+			if( id >= 0 )
+				if ( !_upheap( id ) )
+					_downheap( id );
 
 			return true;
 		}

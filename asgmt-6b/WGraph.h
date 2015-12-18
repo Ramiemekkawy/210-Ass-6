@@ -37,12 +37,12 @@ public:
 	static char v_name( Weight s );		// Map vertex number to a name (character) 
 	void load_from_disk( string fname );		// Get Graph from text File (fname)
 	void print_graph() const;			// Display Adjacency Matrix
-	int  n_vertices() const;		// Get number of vertices (V)
-	int  n_edges() const;		// Get Number of Non-zero edges (E)
+	Weight n_vertices() const;		// Get number of vertices (V)
+	Weight n_edges() const;		// Get Number of Non-zero edges (E)
 	void print_edges() const;			// Display Graph edges
 	std::vector<std::pair<int, int>> WGraph::bf_trav( int i = 1 );
 	void calc_shortest_paths( int s );			// Shortest paths from node (s)
-
+	void print_walk_path( int s, int i );
 //______________________________________________________________________________________________
 
 private:
@@ -54,6 +54,5 @@ private:
 	std::vector<bool> processed;		// processed array for shortest paths  
 	void update_edges();			// Get Non-Zero edges from adjacency matrix  
 	std::string WGraph::to_string( Edge e ) const;	// Output an edge (e)  
-	void print_walk_path( int s, int i ) const;	// Print path from source (s) to destination (i)  
 };
 #endif // GRAPHS_H

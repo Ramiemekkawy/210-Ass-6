@@ -43,11 +43,17 @@ void WGraph::load_from_disk( string fname )
 		cout << "Error reading file" << endl;
 		return;
 	}
+	else
+		cout << "File loaded successfully." << endl;
 
 	source >> nVertices;	// Read no. of verices (V)
 	adjMatrix.resize( nVertices );
 	for ( auto& a : adjMatrix )
 		a.resize( nVertices );
+
+	distance.resize( nVertices );
+	prev.resize( nVertices );
+
 	// Input weights from the file into a 2-D 
 	// Adjacency Matrix of V rows and V columns
 	for ( size_t r = 0; r < nVertices; r++ ) {
@@ -60,7 +66,7 @@ void WGraph::load_from_disk( string fname )
 				break;
 		}
 	}
-	
+
 	update_edges();
 }
 
@@ -71,7 +77,7 @@ void WGraph::print_graph() const
 		fmt::print( "\n<!>Fatal Error! Not enough time to study... Also, your graph is fun-sized (0 or less)." );
 		return;
 	}
-	
+
 	Weight i, j;
 
 	cout << "Adjacency Matrix\n";
@@ -106,13 +112,13 @@ void WGraph::update_edges()
 }
 
 // Get number of vertices (V)	
-int WGraph::n_vertices() const
+auto WGraph::n_vertices() const -> Weight
 {
 	return nVertices;
 }
 
 // Get Number of Non-zero edges (E)
-int WGraph::n_edges() const
+auto WGraph::n_edges() const -> Weight
 {
 	return nEdges;
 }
@@ -133,7 +139,7 @@ void WGraph::print_edges() const
 
 // Shortest paths from node s
 // uses Dijkstra's Algorithm
-void WGraph::calc_shortest_paths( int s )
+void WGraph::calc_shortest_paths( int source )
 {
 	// the core of the algorithm; our self-sorting/bubbling set of vertices
 	stdx::PriorityQueue<Weight, Weight> q;
@@ -141,21 +147,21 @@ void WGraph::calc_shortest_paths( int s )
 	// populate the set 
 	for ( Weight v = 0; v < nVertices; ++v ) {
 		// direct distance.
-		this->distance[v] = adjMatrix[s][v];
+		this->distance[v] = adjMatrix[source][v];
 		if ( distance[v] == 0 )
 			// infinite distance
 			distance[v] = (unsigned) -1;
-		// unknown previous or 'via' step.
-		prev[v] = -1;
+		// default previous or 'via' step.
+		prev[v] = source;
 		// push vertex 'v' with weight from source 's' = 'distance[v]'
 		q.push( { distance[v], v } );
 	}
 
 	// distance from source to source = 0
-	this->distance[s] = 0;
+	this->distance[source] = 0;
 
 	// reset priority/weight of 's'/source to 0.
-	q.set_priority( s, 0 );
+	q.set_priority( source, 0 );
 
 	while ( !q.empty() ) {
 		// pull one vertex and work on neighbors
@@ -182,21 +188,40 @@ void WGraph::calc_shortest_paths( int s )
 }
 
 // Print path (vertex names) from source (s) to destination (i)
-void WGraph::print_walk_path( int source, int target ) const
+void WGraph::print_walk_path( int source, int target )
 {
-	auto target_p = std::find( std::begin( prev ), std::end( prev ), target ) - std::begin( prev );
+	//auto target_p = std::find( std::begin( prev ), std::end( prev ), target ) - std::begin( prev );
+
+	if ( source < 0 || source >= nVertices
+		 || target < 0 || target >= nVertices )
+		fmt::print( "\nError! Input source '{}'"
+					" and target '{}' invalid for this graph.\n",
+					source,
+					target );
+
+	this->calc_shortest_paths( source );
+
+	/**\
+	cout << "\n[";
+	for ( auto& s : prev ) {
+		fmt::print( "{}, ", s );
+	}
+	cout << "]\n";
+	/**/
 
 	std::stack<char> st;
 
-	while ( target_p != -1 ) {
-		st.push( v_name( target_p ) );
-		target_p = prev[target_p];
-	}
+ 	while ( target != source ) {
+		st.push( v_name( target ) );
+		target = prev[target];
+	} 
 
+	fmt::print( "==> {}, ", v_name( source ) );
 	while ( !st.empty() ) {
-		fmt::print( ". {}\n", st.top() );
+		fmt::print( "{}, ", st.top() );
 		st.pop();
 	}
+	cout << endl;
 }
 
 // Breadth First Search Traversal overload that outputs traversal as queue pops
@@ -218,7 +243,7 @@ std::vector<std::pair<int, int>> WGraph::bf_trav( int i )
 		Q.pop();
 
 		trav_hist[i] = ++order;
-		
+
 		// push all the neighbors
 		for ( size_t t = 0; t < nVertices; t++ ) {  // Scan from left to right
 			if ( adjMatrix[i][t] != 0 ) {
@@ -236,7 +261,7 @@ std::vector<std::pair<int, int>> WGraph::bf_trav( int i )
 			rv.emplace_back( trav_hist[i], i );
 	}
 
-	stdx::heap_sort_ip( &rv, std::less<std::pair<int, int>>());
+	stdx::heap_sort_ip( &rv, std::less<std::pair<int, int>>() );
 
 	return rv;
 }
