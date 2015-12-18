@@ -12,23 +12,7 @@ namespace stdx
 {
 	namespace p = pandora;
 
-	struct less_than {
-		template<class T>
-		bool operator()( T const& in1, T const& in2 ) const
-		{
-			return in1 < in2;
-		}
-	};
-
-	struct more_than {
-		template<class T>
-		bool operator()( T const& in1, T const& in2 ) const
-		{
-			return in1 > in2;
-		}
-	};
-
-	template<typename Ty, class Pred = less_than>
+	template<typename Ty, class Pred = std::less<Ty>>
 	class BiHeap {
 		using This = BiHeap;
 		using Idx = ptrdiff_t;
@@ -358,10 +342,10 @@ namespace stdx
 	const Pred stdx::BiHeap<T, Pred>::_cmp = Pred();
 	/**/
 	template<class T>
-	using MaxHeap = BiHeap<T, more_than>;
+	using MaxHeap = BiHeap<T, std::greater<T>>;
 
 	template<class T>
-	using MinHeap = BiHeap<T, less_than>;
+	using MinHeap = BiHeap<T>;
 
 #if 0
 	// used to need it to support lambda predicates
@@ -382,8 +366,8 @@ namespace stdx
 	/// HeapSort in-place; Default comparison requires 'operator<' defined
 	/// But allows functor, function pointer and lambda predicates as well
 	/// given that they guarantee a total order for the data-type being sorted.
-	template<class Func = less_than, class Data = void>
-	bool heap_sort_ip( std::vector<Data> *const inout, Func fun = less_than() )
+	template<class Data = void, class Func = std::less<Data>>
+	bool heap_sort_ip( std::vector<Data> *const inout, Func fun = std::less<Data>() )
 	{
 		BiHeap<Data, Func> heap( fun );
 

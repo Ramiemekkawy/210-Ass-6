@@ -34,7 +34,7 @@ public:
 	~WGraph();
 
 // Public interface [unstable]
-	char Vname( Weight s ) const;		// Map vertex number to a name (character) 
+	static char v_name( Weight s );		// Map vertex number to a name (character) 
 	void load_from_disk( string fname );		// Get Graph from text File (fname)
 	void print_graph() const;			// Display Adjacency Matrix
 	int  n_vertices() const;		// Get number of vertices (V)
@@ -50,7 +50,7 @@ private:
 	std::vector<std::vector<Weight>> adjMatrix;	// Adjacency Matrix
 	std::vector<Edge> edges;			// Array of non-zero edges
 	std::vector<Weight> distance;		// Distance array for shortest paths  
-	std::vector<int> via;			// Via array for shortest paths  
+	std::vector<int> prev;			// Via array for shortest paths  
 	std::vector<bool> processed;		// processed array for shortest paths  
 	void update_edges();			// Get Non-Zero edges from adjacency matrix  
 	std::string WGraph::to_string( Edge e ) const;	// Output an edge (e)  

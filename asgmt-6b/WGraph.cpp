@@ -26,7 +26,7 @@ WGraph::~WGraph()
 
 
 // Map vertex number (0,1,2,..) to (A,B,C,..)
-char WGraph::Vname( Weight s ) const
+char WGraph::v_name( Weight s )
 {
 	char Vertex;
 	return Vertex = (char) (s + (int)'A');
@@ -43,6 +43,7 @@ void WGraph::load_from_disk( string fname )
 		cout << "Error reading file" << endl;
 		return;
 	}
+
 	source >> nVertices;	// Read no. of verices (V)
 	adjMatrix.resize( nVertices );
 	for ( auto& a : adjMatrix )
@@ -60,7 +61,6 @@ void WGraph::load_from_disk( string fname )
 		}
 	}
 	
-	//source.close();// close file
 	update_edges();
 }
 
@@ -71,7 +71,9 @@ void WGraph::print_graph() const
 		fmt::print( "\n<!>Fatal Error! Not enough time to study... Also, your graph is fun-sized (0 or less)." );
 		return;
 	}
-	int i, j;
+	
+	Weight i, j;
+
 	cout << "Adjacency Matrix\n";
 	for ( i = 0; i < nVertices; i++ ) {
 		for ( j = 0; j < nVertices; j++ )
@@ -84,21 +86,23 @@ void WGraph::print_graph() const
 // and store them in array edges[]. 
 void WGraph::update_edges()
 {
-	int r, c;
-	Weight weight;
+	Weight
+		r,
+		c,
+		weight;
+
+	edges.clear();
 
 	// Only examine weights above the diagonal 
-	for ( r = 0; r <= nVertices - 2; r++ )
-		for ( c = r + 1; c <= nVertices - 1; c++ ) {
+	for ( r = 0; r < nVertices - 1; r++ )
+		for ( c = r + 1; c < nVertices; c++ ) {
 			weight = adjMatrix[r][c];
 			if ( weight > 0 ) {
-				// save (r,c,weight) in edges[i]
 				edges.emplace_back( r, c, weight );
 			}
 		}
 
 	nEdges = edges.size();		// Number of non-zero edges
-
 }
 
 // Get number of vertices (V)	
@@ -116,7 +120,7 @@ int WGraph::n_edges() const
 // Output an edge (e): Vertex names and weight
 std::string WGraph::to_string( Edge e ) const
 {
-	return Vname( e.u ) + (std::string)" " + Vname( e.v ) + " " + std::to_string( e.w ) + "\n";
+	return (std::string)"(" + v_name( e.u ) + ", " + v_name( e.v ) + ", " + std::to_string( e.w ) + ")\n";
 }
 
 // Display Graph Edges
@@ -137,7 +141,7 @@ void WGraph::shortest_path( int s )
 
 	for ( Weight v = 0; v < nVertices; ++v ) {
 		this->distance[v] = (unsigned) -1;
-		via[v] = -1;
+		prev[v] = -1;
 		q.push( { distance[v], v } );
 	}
 
@@ -151,7 +155,7 @@ void WGraph::shortest_path( int s )
 			auto alt = distance[u.data] + adjMatrix[u.data][nb];
 			if ( alt < distance[nb] ) {
 				distance[nb] = alt;
-				via[nb] = u.data;
+				prev[nb] = u.data;
 
 				q.set_priority( u.data, alt );
 			}
@@ -164,13 +168,13 @@ void WGraph::shortest_path( int s )
 // Print path (vertex names) from source (s) to destination (i)
 void WGraph::print_walk_path( int source, int target ) const
 {
-	auto target_p = std::find( std::begin( via ), std::end( via ), target ) - std::begin( via );
+	auto target_p = std::find( std::begin( prev ), std::end( prev ), target ) - std::begin( prev );
 
 	std::stack<char> st;
 
 	while ( target_p != -1 ) {
-		st.push( Vname( target_p ) );
-		target_p = via[target_p];
+		st.push( v_name( target_p ) );
+		target_p = prev[target_p];
 	}
 
 	while ( !st.empty() ) {
@@ -183,10 +187,8 @@ void WGraph::print_walk_path( int source, int target ) const
 std::vector<std::pair<int, int>> WGraph::bf_trav( int i )
 {
 	std::vector<int> trav_hist( nVertices );
-	int order = -1;
+	int order = 0;
 	std::queue<Weight> Q;
-	int
-		t;
 	int const
 		unseen = -1,
 		hold = -2;
@@ -197,16 +199,19 @@ std::vector<std::pair<int, int>> WGraph::bf_trav( int i )
 	Q.push( i );
 	while ( !Q.empty() ) {
 		i = Q.front();
-
 		Q.pop();
+
 		trav_hist[i] = ++order;
-		for ( t = 0; t < nVertices; t++ )  // Scan from left to right
+		
+		// push all the neighbors
+		for ( int t = 0; t < nVertices; t++ ) {  // Scan from left to right
 			if ( adjMatrix[i][t] != 0 ) {
 				if ( trav_hist[t] == unseen ) {
 					Q.push( t );
 					trav_hist[t] = hold;
 				}
 			}
+		}
 	}
 
 	std::vector<std::pair<int, int>> rv;
@@ -215,9 +220,7 @@ std::vector<std::pair<int, int>> WGraph::bf_trav( int i )
 			rv.emplace_back( trav_hist[i], i );
 	}
 
-	stdx::heap_sort_ip( &rv,
-						[]( std::pair<int, int> in1, std::pair<int, int> in2 ) { return in1.first < in2.first; }
-	);
+	stdx::heap_sort_ip( &rv, std::less<std::pair<int, int>>());
 
 	return rv;
 }

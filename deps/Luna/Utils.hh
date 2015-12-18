@@ -6,6 +6,8 @@
 #include <sstream>
 #include "format.h"
 #include <utility>
+#include <functional>
+#include <algorithm>
 
 #if 1
 #include "exp.inl"
